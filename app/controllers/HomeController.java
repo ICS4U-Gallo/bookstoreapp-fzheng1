@@ -18,4 +18,8 @@ public class HomeController extends Controller {
         return ok(views.html.index.render());
     }
 
+    public Result welcome(String name, String lastname) {
+        return ok("Welcome " + name + " " + lastname);
+    }
+
 }
