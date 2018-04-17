@@ -4,7 +4,7 @@ import play.mvc.Controller;
 
 import play.mvc.Result;
 
-public class BookStoreController extends Controller {
+public class BooksController extends Controller {
 
     // showing all books to user
     public Result index(){
