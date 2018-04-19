@@ -9,11 +9,10 @@
         <h1>All Books</h1>
 
         @for(book <- books){
-            <a href="#">@book.title</a>
-            <p>Price : @book.price</p>
-            <p>Author : @book.author</p>
-
-
+            <a href="#">@book.getTitle()</a>
+            <p>Price : @book.getPrice()</p>
+            <p>Author : @book.getAuthor()</p>
         }
+
     </body>
 </html>

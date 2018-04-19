@@ -33,6 +33,10 @@ public class BooksController extends Controller {
 
     // edit book
     public Result edit(int id){
+        Book book = Book.findById(id);
+        Form<Book> bookForm = formFactory.form(Book.class);
+
+
         return TODO;
     }
 
@@ -51,8 +55,11 @@ public class BooksController extends Controller {
 
     // save book
     public Result save(){
-
-        return TODO;
+        Form<Book> bookForm = formFactory.form(Book.class).bindFromRequest();
+        Book book = bookForm.get();
+        System.out.println(book.getAuthor() + book.getId() + book.getTitle() + book.getPrice());
+        Book.add(book);
+        return redirect(routes.BooksController.index());
     }
 
 }
