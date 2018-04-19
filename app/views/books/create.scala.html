@@ -1,0 +1,24 @@
+@(bookFrom : Form[Book])
+@import helper.checkbox
+
+<html>
+    <head>
+        <title>Create Books</title>
+    </head>
+    <body>
+
+        <h1>Create Books</h1>
+        @helper.form(action = routes.BooksController.save()){
+            @helper.inputText(bookFrom("id"))
+            @helper.inputText(bookFrom("title"))
+            @helper.inputText(bookFrom("price"))
+            @helper.inputText(bookFrom("author"))
+
+            <input type="submit" value="Create Book">
+
+        }
+
+
+
+    </body>
+</html>
