@@ -10,6 +10,8 @@ import java.util.Set;
 import views.html.books.create;
 import views.html.books.edit;
 import views.html.books.index;
+import views.html.books.show;
+
 import javax.inject.Inject;
 
 
@@ -60,12 +62,23 @@ public class BooksController extends Controller {
     }
 
     public Result destroy(int id){
-        return TODO;
+        Book book = Book.findById(id);
+        if(book == null){
+            return notFound("Book Not Found");
+        }
+        Book.remove(book);
+
+
+        return redirect(routes.BooksController.index());
     }
 
     // for book details
     public Result show(int id){
-        return TODO;
+        Book book = Book.findById(id);
+        if (book == null){
+            return notFound("Book Not Found");
+        }
+        return ok(show.render(book));
     }
 
     // save book
