@@ -8,6 +8,7 @@ import play.mvc.Result;
 import java.util.Set;
 
 import views.html.books.create;
+import views.html.books.edit;
 import views.html.books.index;
 import javax.inject.Inject;
 
@@ -34,14 +35,28 @@ public class BooksController extends Controller {
     // edit book
     public Result edit(int id){
         Book book = Book.findById(id);
-        Form<Book> bookForm = formFactory.form(Book.class);
+        if (book == null){
+            return notFound("Book Not Found");
+        }
+        Form<Book> bookForm = formFactory.form(Book.class).fill(book);
 
 
-        return TODO;
+        return ok(edit.render(bookForm));
     }
 
     public Result update(){
-        return TODO;
+        Book book = formFactory.form(Book.class).bindFromRequest().get();
+        Book oldBook = Book.findById(book.getId());
+        if (oldBook == null){
+            return notFound("Book not found");
+        }
+        oldBook.setTitle(book.getTitle());
+        oldBook.setPrice(book.getPrice());
+        oldBook.setAuthor(book.getAuthor());
+        oldBook.setId(book.getId());
+
+
+        return redirect(routes.BooksController.index());
     }
 
     public Result destroy(int id){
@@ -57,7 +72,6 @@ public class BooksController extends Controller {
     public Result save(){
         Form<Book> bookForm = formFactory.form(Book.class).bindFromRequest();
         Book book = bookForm.get();
-        System.out.println(book.getAuthor() + book.getId() + book.getTitle() + book.getPrice());
         Book.add(book);
         return redirect(routes.BooksController.index());
     }
